@@ -1,4 +1,5 @@
 from .bloodoath import BloodOath
+from .cult import Cult
 
 class Follower:
     
@@ -45,8 +46,16 @@ class Follower:
             raise Exception('new_life_motto must be a string')
 
     def join_cult(self, cult):
-        return BloodOath(self, cult)
+        if self.age >= Cult.minimum_age:
+            return BloodOath(self, cult)
+        else:
+            print(f'Wait a little mor, when you turn {Cult.minimum_age}, you can join them again')
     
     @classmethod
     def of_a_certain_age(cls, int):
         return [f for f in Follower.all if f.age >= int]
+    
+    def fellow_cult_members(self):
+        return list(set([b.follower for b in BloodOath.all if b.cult == self and b.name != self]))
+    
+

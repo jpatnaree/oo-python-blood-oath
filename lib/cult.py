@@ -1,8 +1,9 @@
 from .bloodoath import BloodOath
-
 class Cult:
     
     all = []
+
+    minimum_age = 15
 
     def __init__(self, name, location, founding_year, slogan):
         self.name = name
@@ -70,3 +71,10 @@ class Cult:
     @classmethod
     def find_by_founding_year(self, founding_year):
         return [c for c in Cult.all if c.founding_year == founding_year]
+    
+    def recruit_follower(self, follower):
+        if not follower.age < Cult.minimum_age:
+            BloodOath(self, follower)
+        else:
+            print(f'Wait until you are {Cult.minimum_age} years old, and we will gladly welcome you to our family')
+        
