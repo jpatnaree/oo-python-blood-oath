@@ -1,5 +1,5 @@
-from .bloodoath import BloodOath
-from .cult import Cult
+from bloodoath import BloodOath
+from cult import Cult
 
 class Follower:
     
@@ -29,10 +29,10 @@ class Follower:
     
     @age.setter
     def age(self, new_age):
-        if isinstance(new_age, str):
+        if isinstance(new_age, int):
             self._age = new_age
         else:
-            raise Exception('new_age must be a string')
+            raise Exception('new_age must be an integor')
         
     @property
     def life_motto(self):
@@ -59,3 +59,11 @@ class Follower:
         return list(set([b.follower for b in BloodOath.all if b.cult == self and b.name != self]))
     
 
+    def my_cults_slogans(self):
+        return [b.slogan for b in BloodOath.all if b.follower == self]
+    
+charles = Follower("Charles", 23, "I'm the coolest")
+manson = Cult("MANSON", "CA", 1974, "I'm Cool")
+print(manson)
+c1 = BloodOath(manson, charles, "1993-1-1")
+print(c1)

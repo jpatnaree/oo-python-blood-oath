@@ -1,4 +1,6 @@
-from .bloodoath import BloodOath
+from bloodoath import BloodOath
+from statistics import mean
+
 class Cult:
     
     all = []
@@ -52,7 +54,11 @@ class Cult:
     
     @founding_year.setter
     def founding_year(self, new_founding_year):
-        raise Exception('founding_year cannot be changed')
+        if not hasattr(self, "_founding_year"):
+            self._founding_year = new_founding_year
+        else:
+            raise Exception('founding_year cannot be changed')
+        
     
     def recruit_follower(self, follower):
         return BloodOath(self, follower)
@@ -78,3 +84,12 @@ class Cult:
         else:
             print(f'Wait until you are {Cult.minimum_age} years old, and we will gladly welcome you to our family')
         
+    def average_age(self):
+        follower_all_age = [b.age for b in BloodOath.all if b.cult == self]
+        return mean(follower_all_age)
+    
+    def my_followers_mottos(self):
+        return [b.life_motto for b in BloodOath.all if b.cult == self]
+    
+
+

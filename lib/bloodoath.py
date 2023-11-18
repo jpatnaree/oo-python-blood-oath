@@ -8,8 +8,7 @@ class BloodOath:
         self.cult = cult
         self.follower = follower
         if isinstance(date, str):
-            self.date = datetime.strptime(date, '%Y-%m-%d')
+            self.date = str(datetime.strptime(date, '%Y-%m-%d'))
         BloodOath.all.append(self)
 
     
-        
